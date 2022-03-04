@@ -25,7 +25,7 @@ public abstract class SceneBase : MonoBehaviour, PlayerControls.ICursorActions
 
     private void PrintContext(string Label, InputAction.CallbackContext context)
     {
-        Debug.Log($"{Label} : {context}");
+        //Debug.Log($"{Label} : {context}");
     }
 
     public virtual void OnOK(InputAction.CallbackContext context)
