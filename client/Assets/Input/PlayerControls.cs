@@ -28,7 +28,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
             ""id"": ""bc914028-c4b3-4709-83b0-cbe85c99c5a1"",
             ""actions"": [
                 {
-                    ""name"": ""Paint"",
+                    ""name"": ""OK"",
                     ""type"": ""Button"",
                     ""id"": ""e6045198-e249-4223-ab45-84dfd8783a7d"",
                     ""expectedControlType"": ""Button"",
@@ -37,7 +37,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""X"",
+                    ""name"": ""Cancel"",
                     ""type"": ""Button"",
                     ""id"": ""963df8f7-4391-47df-a4ca-4cea52a28f71"",
                     ""expectedControlType"": ""Button"",
@@ -90,7 +90,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Paint"",
+                    ""action"": ""OK"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -101,18 +101,18 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Paint"",
+                    ""action"": ""OK"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
                     ""id"": ""0b24c54d-c377-456b-8b85-520838863976"",
-                    ""path"": ""<Keyboard>/space"",
+                    ""path"": ""<Keyboard>/escape"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""X"",
+                    ""action"": ""Cancel"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -123,7 +123,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""X"",
+                    ""action"": ""Cancel"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -222,8 +222,8 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
 }");
         // Cursor
         m_Cursor = asset.FindActionMap("Cursor", throwIfNotFound: true);
-        m_Cursor_Paint = m_Cursor.FindAction("Paint", throwIfNotFound: true);
-        m_Cursor_X = m_Cursor.FindAction("X", throwIfNotFound: true);
+        m_Cursor_OK = m_Cursor.FindAction("OK", throwIfNotFound: true);
+        m_Cursor_Cancel = m_Cursor.FindAction("Cancel", throwIfNotFound: true);
         m_Cursor_Up = m_Cursor.FindAction("Up", throwIfNotFound: true);
         m_Cursor_Left = m_Cursor.FindAction("Left", throwIfNotFound: true);
         m_Cursor_Down = m_Cursor.FindAction("Down", throwIfNotFound: true);
@@ -287,8 +287,8 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
     // Cursor
     private readonly InputActionMap m_Cursor;
     private ICursorActions m_CursorActionsCallbackInterface;
-    private readonly InputAction m_Cursor_Paint;
-    private readonly InputAction m_Cursor_X;
+    private readonly InputAction m_Cursor_OK;
+    private readonly InputAction m_Cursor_Cancel;
     private readonly InputAction m_Cursor_Up;
     private readonly InputAction m_Cursor_Left;
     private readonly InputAction m_Cursor_Down;
@@ -297,8 +297,8 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
     {
         private @PlayerControls m_Wrapper;
         public CursorActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
-        public InputAction @Paint => m_Wrapper.m_Cursor_Paint;
-        public InputAction @X => m_Wrapper.m_Cursor_X;
+        public InputAction @OK => m_Wrapper.m_Cursor_OK;
+        public InputAction @Cancel => m_Wrapper.m_Cursor_Cancel;
         public InputAction @Up => m_Wrapper.m_Cursor_Up;
         public InputAction @Left => m_Wrapper.m_Cursor_Left;
         public InputAction @Down => m_Wrapper.m_Cursor_Down;
@@ -312,12 +312,12 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         {
             if (m_Wrapper.m_CursorActionsCallbackInterface != null)
             {
-                @Paint.started -= m_Wrapper.m_CursorActionsCallbackInterface.OnPaint;
-                @Paint.performed -= m_Wrapper.m_CursorActionsCallbackInterface.OnPaint;
-                @Paint.canceled -= m_Wrapper.m_CursorActionsCallbackInterface.OnPaint;
-                @X.started -= m_Wrapper.m_CursorActionsCallbackInterface.OnX;
-                @X.performed -= m_Wrapper.m_CursorActionsCallbackInterface.OnX;
-                @X.canceled -= m_Wrapper.m_CursorActionsCallbackInterface.OnX;
+                @OK.started -= m_Wrapper.m_CursorActionsCallbackInterface.OnOK;
+                @OK.performed -= m_Wrapper.m_CursorActionsCallbackInterface.OnOK;
+                @OK.canceled -= m_Wrapper.m_CursorActionsCallbackInterface.OnOK;
+                @Cancel.started -= m_Wrapper.m_CursorActionsCallbackInterface.OnCancel;
+                @Cancel.performed -= m_Wrapper.m_CursorActionsCallbackInterface.OnCancel;
+                @Cancel.canceled -= m_Wrapper.m_CursorActionsCallbackInterface.OnCancel;
                 @Up.started -= m_Wrapper.m_CursorActionsCallbackInterface.OnUp;
                 @Up.performed -= m_Wrapper.m_CursorActionsCallbackInterface.OnUp;
                 @Up.canceled -= m_Wrapper.m_CursorActionsCallbackInterface.OnUp;
@@ -334,12 +334,12 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
             m_Wrapper.m_CursorActionsCallbackInterface = instance;
             if (instance != null)
             {
-                @Paint.started += instance.OnPaint;
-                @Paint.performed += instance.OnPaint;
-                @Paint.canceled += instance.OnPaint;
-                @X.started += instance.OnX;
-                @X.performed += instance.OnX;
-                @X.canceled += instance.OnX;
+                @OK.started += instance.OnOK;
+                @OK.performed += instance.OnOK;
+                @OK.canceled += instance.OnOK;
+                @Cancel.started += instance.OnCancel;
+                @Cancel.performed += instance.OnCancel;
+                @Cancel.canceled += instance.OnCancel;
                 @Up.started += instance.OnUp;
                 @Up.performed += instance.OnUp;
                 @Up.canceled += instance.OnUp;
@@ -358,8 +358,8 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
     public CursorActions @Cursor => new CursorActions(this);
     public interface ICursorActions
     {
-        void OnPaint(InputAction.CallbackContext context);
-        void OnX(InputAction.CallbackContext context);
+        void OnOK(InputAction.CallbackContext context);
+        void OnCancel(InputAction.CallbackContext context);
         void OnUp(InputAction.CallbackContext context);
         void OnLeft(InputAction.CallbackContext context);
         void OnDown(InputAction.CallbackContext context);

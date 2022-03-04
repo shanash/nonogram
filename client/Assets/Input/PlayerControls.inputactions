@@ -6,7 +6,7 @@
             "id": "bc914028-c4b3-4709-83b0-cbe85c99c5a1",
             "actions": [
                 {
-                    "name": "Paint",
+                    "name": "OK",
                     "type": "Button",
                     "id": "e6045198-e249-4223-ab45-84dfd8783a7d",
                     "expectedControlType": "Button",
@@ -15,7 +15,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "X",
+                    "name": "Cancel",
                     "type": "Button",
                     "id": "963df8f7-4391-47df-a4ca-4cea52a28f71",
                     "expectedControlType": "Button",
@@ -68,7 +68,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Paint",
+                    "action": "OK",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -79,18 +79,18 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Paint",
+                    "action": "OK",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
                     "id": "0b24c54d-c377-456b-8b85-520838863976",
-                    "path": "<Keyboard>/space",
+                    "path": "<Keyboard>/escape",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "X",
+                    "action": "Cancel",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -101,7 +101,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "X",
+                    "action": "Cancel",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
