@@ -1,3 +1,4 @@
+using UnityEngine;
 
 public class Tile : MapCompBase
 {
@@ -23,10 +24,22 @@ public class Tile : MapCompBase
     }
     private TileType m_type = TileType.None;
 
-    public Tile(TileType type, int posIndex, int mapSize)
+    public static Tile Create(RectTransform parent, int posIndex, int mapSize)
+    {
+        var tile = new Tile(posIndex, mapSize);
+        tile.Init(parent);
+        return tile;
+    }
+
+    protected Tile(int posIndex, int mapSize)
         : base(posIndex, mapSize)
     {
-        Type = type;
+        Type = TileType.Empty;
+    }
+
+    private void Init(RectTransform parent)
+    {
+
     }
 
 }

@@ -3,13 +3,16 @@ using UnityEngine.InputSystem;
 
 public class GameScene : SceneBase
 {
+    [SerializeField]
+    private RectTransform m_parentViewMap = null;
+
     private Map m_map = null;
     private Cursor m_cursor = null;
     protected override void Awake()
     {
         base.Awake();
 
-        m_map = Map.Create(10);
+        m_map = Map.Create(m_parentViewMap, 10);
         m_cursor = m_map.Cursor;
     }
 
@@ -18,11 +21,14 @@ public class GameScene : SceneBase
         base.OnOK(context);
         if (context.started)
         {
-            var tile = m_map.GetTile(m_cursor.PosIndex);
-            if (tile.Type != Tile.TileType.Empty)
-                tile.Type = Tile.TileType.Empty;
+            if (m_cursor.Tile.Type == Tile.TileType.Empty)
+                m_cursor.Mode = Cursor.CursorMode.Paint;
             else
-                tile.Type = Tile.TileType.Painted;
+                m_cursor.Mode = Cursor.CursorMode.Remove;
+        }
+        else if (context.canceled)
+        {
+            m_cursor.Mode = Cursor.CursorMode.Normal;
         }
     }
 
@@ -31,11 +37,14 @@ public class GameScene : SceneBase
         base.OnCancel(context);
         if (context.started)
         {
-            var tile = m_map.GetTile(m_cursor.PosIndex);
-            if (tile.Type != Tile.TileType.Empty)
-                tile.Type = Tile.TileType.Empty;
+            if (m_cursor.Tile.Type == Tile.TileType.Empty)
+                m_cursor.Mode = Cursor.CursorMode.Cross;
             else
-                tile.Type = Tile.TileType.Crossed;
+                m_cursor.Mode = Cursor.CursorMode.Remove;
+        }
+        else if (context.canceled)
+        {
+            m_cursor.Mode = Cursor.CursorMode.Normal;
         }
     }
 
