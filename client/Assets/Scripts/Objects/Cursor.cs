@@ -33,16 +33,27 @@ public class Cursor : MapCompBase
     private List<IMoveCursor> m_listeners = new List<IMoveCursor>();
     public Tile Tile { get { return m_hasTile; } }
     private Tile m_hasTile = null;
+    private ViewCursor m_view = null;
 
     public static Cursor Create(int posIndex, int mapSize)
     {
-        return new Cursor(posIndex, mapSize);
+        var cursor = new Cursor(posIndex, mapSize);
+        cursor.Init();
+
+        return cursor;
     }
 
     protected Cursor(int posIndex, int mapSize)
         : base(posIndex, mapSize)
     {
 
+    }
+
+    private void Init()
+    {
+        var goViewCursor = new GameObject($"ViewTile{PosIndex}", typeof(RectTransform), typeof(ViewCursor));
+        m_view = goViewCursor.GetComponent<ViewCursor>();
+        m_view.Init();
     }
 
     public void AddListner(IMoveCursor listner)
@@ -64,6 +75,7 @@ public class Cursor : MapCompBase
     public void SetTile(Tile tile)
     {
         m_hasTile = tile;
+        m_view.SetParent(tile.View);
     }
 
     private void FillTile()

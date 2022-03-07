@@ -12,7 +12,7 @@ public class GameScene : SceneBase
     {
         base.Awake();
 
-        m_map = Map.Create(m_parentViewMap, 10);
+        m_map = Map.Create(m_parentViewMap, 20);
         m_cursor = m_map.Cursor;
     }
 

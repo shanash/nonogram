@@ -24,6 +24,7 @@ public class Tile : MapCompBase
     }
 
     private TileType m_type = TileType.None;
+    public ViewTile View { get { return m_view; } }
     private ViewTile m_view = null;
 
     public static Tile Create(RectTransform parent, int posIndex, int sideLength)

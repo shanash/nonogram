@@ -1,11 +1,28 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.EnhancedTouch;
 
 public class ViewCursor : MonoBehaviour
 {
+    public void Init()
+    {
+        var rt = (RectTransform)this.transform;
+        rt.anchorMin = new Vector2(0, 1);
+        rt.anchorMax = new Vector2(0, 1);
+        rt.pivot = new Vector2(0, 1);
+
+        UnityEngine.UI.Image image = this.gameObject.AddComponent<UnityEngine.UI.Image>();
+        image.color = Color.red;
+    }
+
+    public void SetParent(ViewTile viewTile)
+    {
+        transform.parent = viewTile.transform;
+        var rt = (RectTransform)this.transform;
+        var rtTile = (RectTransform)viewTile.transform;
+        rt.sizeDelta = rtTile.sizeDelta;
+        rt.anchoredPosition = Vector2.zero;
+    }
+
     public void OnPaint(InputAction.CallbackContext context)
     {
         Debug.Log($"OnPaint : {context}");
