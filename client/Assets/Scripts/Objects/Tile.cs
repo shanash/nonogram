@@ -22,11 +22,13 @@ public class Tile : MapCompBase
             m_type = value;
         }
     }
-    private TileType m_type = TileType.None;
 
-    public static Tile Create(RectTransform parent, int posIndex, int mapSize)
+    private TileType m_type = TileType.None;
+    private ViewTile m_view = null;
+
+    public static Tile Create(RectTransform parent, int posIndex, int sideLength)
     {
-        var tile = new Tile(posIndex, mapSize);
+        var tile = new Tile(posIndex, sideLength);
         tile.Init(parent);
         return tile;
     }
@@ -39,7 +41,9 @@ public class Tile : MapCompBase
 
     private void Init(RectTransform parent)
     {
-
+        var goViewTile = new GameObject($"ViewTile{PosIndex}", typeof(RectTransform), typeof(ViewTile));
+        m_view = goViewTile.GetComponent<ViewTile>();
+        m_view.Init(parent, PosIndex, m_sideLength);
     }
 
 }

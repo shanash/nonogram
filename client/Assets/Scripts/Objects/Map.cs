@@ -36,7 +36,7 @@ public class Map : Cursor.IMoveCursor
 
         for (int i = 0; i < size * size; i++)
         {
-            var tile = Tile.Create(parent, i, size);
+            var tile = Tile.Create((RectTransform)goViewMap.transform, i, size);
             m_listTile.Add(tile);
         }
 

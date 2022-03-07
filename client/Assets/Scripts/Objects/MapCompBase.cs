@@ -13,16 +13,16 @@ public abstract class MapCompBase
         Left,
     }
 
-    public int PosX { get { if (PosIndex < 0 || PosIndex >= IndexCount) return 0; return PosIndex % m_mapSize; } }
-    public int PosY { get { if (PosIndex < 0 || PosIndex >= IndexCount) return 0; return PosIndex / m_mapSize; } }
+    public int PosX { get { if (PosIndex < 0 || PosIndex >= IndexCount) return 0; return PosIndex % m_sideLength; } }
+    public int PosY { get { if (PosIndex < 0 || PosIndex >= IndexCount) return 0; return PosIndex / m_sideLength; } }
     public int PosIndex { get; private set; }
-    protected int m_mapSize = 0;
-    public int IndexCount { get { return m_mapSize * m_mapSize; } }
+    protected int m_sideLength = 0;
+    public int IndexCount { get { return m_sideLength * m_sideLength; } }
 
-    protected MapCompBase(int posIndex, int mapSize)
+    protected MapCompBase(int posIndex, int sideLength)
     {
         PosIndex = posIndex;
-        m_mapSize = mapSize;
+        m_sideLength = sideLength;
     }
 
     public virtual void Move(MoveType moveType)
@@ -32,14 +32,14 @@ public abstract class MapCompBase
         switch(moveType)
         {
             case MoveType.Up:
-                PosIndex -= m_mapSize;
+                PosIndex -= m_sideLength;
                 if (PosIndex < 0)
                 {
                     PosIndex += IndexCount;
                 }
                 break;
             case MoveType.Down:
-                PosIndex += m_mapSize;
+                PosIndex += m_sideLength;
                 if (PosIndex >= IndexCount)
                 {
                     PosIndex -= IndexCount;
@@ -49,14 +49,14 @@ public abstract class MapCompBase
                 PosIndex++;
                 if (prePosY < PosY)
                 {
-                    PosIndex -= m_mapSize;
+                    PosIndex -= m_sideLength;
                 }
                 break;
             case MoveType.Left:
                 PosIndex--;
                 if (prePosY > PosY)
                 {
-                    PosIndex += m_mapSize;
+                    PosIndex += m_sideLength;
                 }
                 break;
         }
