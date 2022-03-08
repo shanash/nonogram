@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Map : Cursor.IMoveCursor
+public class Map : Cursor.IMoveCursor, IViewOrigin
 {
     private ViewMap m_view = null;
 
@@ -32,7 +32,7 @@ public class Map : Cursor.IMoveCursor
     {
         var goViewMap = new GameObject("ViewMap", typeof(RectTransform), typeof(ViewMap));
         m_view = goViewMap.GetComponent<ViewMap>();
-        m_view.Init(parent, size);
+        m_view.Init(this, parent, size);
 
         for (int i = 0; i < size * size; i++)
         {
@@ -50,6 +50,11 @@ public class Map : Cursor.IMoveCursor
         if (posIndex >= m_listTile.Count)
             return null;
         return m_listTile[posIndex];
+    }
+
+    public void OnUpdate(ViewBase viewBase)
+    {
+
     }
 }
 

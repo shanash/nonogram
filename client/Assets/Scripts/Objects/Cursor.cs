@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Timers;
 
-public class Cursor : MapCompBase, PlayerControls.ICursorActions
+public class Cursor : MapCompBase, PlayerControls.ICursorActions, IViewOrigin
 {
     public interface IMoveCursor
     {
@@ -20,7 +20,7 @@ public class Cursor : MapCompBase, PlayerControls.ICursorActions
     }
 
     // 방향키 누르고 있을때 반복입력 주기 1000 = 1초
-    private int kREPEAT_INPUT_TERM = 100;
+    private readonly static int kREPEAT_INPUT_TERM = 100;
 
     public CursorMode Mode {
         get
@@ -206,5 +206,19 @@ public class Cursor : MapCompBase, PlayerControls.ICursorActions
     private void MoveRepeat(object sender, ElapsedEventArgs e)
     {
         Move(m_repeatInputMove);
+    }
+
+    public void OnUpdate(ViewBase viewBase)
+    {
+        Debug.LogError("OnUpdate");
+        if (viewBase is ViewCursor)
+        {
+            var viewCursor = viewBase as ViewCursor;
+            if (Tile.View.transform != viewCursor.transform.parent)
+            {
+                viewCursor.SetParent(Tile.View);
+            }
+        }
+        //((IViewOrigin)Tile).OnUpdate(viewBase);
     }
 }

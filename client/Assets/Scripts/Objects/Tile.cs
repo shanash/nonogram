@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Tile : MapCompBase
+public class Tile : MapCompBase, IViewOrigin
 {
     public enum TileType
     {
@@ -44,7 +44,36 @@ public class Tile : MapCompBase
     {
         var goViewTile = new GameObject($"ViewTile{PosIndex}", typeof(RectTransform), typeof(ViewTile));
         m_view = goViewTile.GetComponent<ViewTile>();
-        m_view.Init(parent, PosIndex, m_sideLength);
+        m_view.Init(this, parent, PosIndex, m_sideLength);
     }
 
+    public void OnUpdate(ViewBase viewBase)
+    {
+        if (viewBase is ViewTile)
+        {
+            var viewTile = viewBase as ViewTile;
+
+            switch(this.Type)
+            {
+                case TileType.Painted:
+                    if (viewTile.ImageName != "dot")
+                    {
+                        viewTile.SetImage("dot", Color.black);
+                    }
+                    break;
+                case TileType.Crossed:
+                    if (viewTile.ImageName != "x")
+                    {
+                        viewTile.SetImage("x", Color.black);
+                    }
+                    break;
+                case TileType.Empty:
+                    if (viewTile.ImageName != string.Empty)
+                    {
+                        viewTile.SetImage(string.Empty, Color.white);
+                    }
+                    break;
+            }
+        }
+    }
 }
