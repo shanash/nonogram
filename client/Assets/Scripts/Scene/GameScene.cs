@@ -14,65 +14,16 @@ public class GameScene : SceneBase
 
         m_map = Map.Create(m_parentViewMap, 20);
         m_cursor = m_map.Cursor;
+        AddInputCallback(m_cursor);
     }
 
-    public override void OnOK(InputAction.CallbackContext context)
+    private void OnEnable()
     {
-        base.OnOK(context);
-        if (context.started)
-        {
-            if (m_cursor.Tile.Type == Tile.TileType.Empty)
-                m_cursor.Mode = Cursor.CursorMode.Paint;
-            else
-                m_cursor.Mode = Cursor.CursorMode.Remove;
-        }
-        else if (context.canceled)
-        {
-            m_cursor.Mode = Cursor.CursorMode.Normal;
-        }
+        m_controls.Cursor.Enable();
     }
 
-    public override void OnCancel(InputAction.CallbackContext context)
+    private void OnDisable()
     {
-        base.OnCancel(context);
-        if (context.started)
-        {
-            if (m_cursor.Tile.Type == Tile.TileType.Empty)
-                m_cursor.Mode = Cursor.CursorMode.Cross;
-            else
-                m_cursor.Mode = Cursor.CursorMode.Remove;
-        }
-        else if (context.canceled)
-        {
-            m_cursor.Mode = Cursor.CursorMode.Normal;
-        }
-    }
-
-    public override void OnUp(InputAction.CallbackContext context)
-    {
-        base.OnUp(context);
-        if (context.started)
-            m_cursor.Move(Cursor.MoveType.Up);
-    }
-
-    public override void OnDown(InputAction.CallbackContext context)
-    {
-        base.OnDown(context);
-        if (context.started)
-            m_cursor.Move(Cursor.MoveType.Down);
-    }
-
-    public override void OnRight(InputAction.CallbackContext context)
-    {
-        base.OnRight(context);
-        if (context.started)
-            m_cursor.Move(Cursor.MoveType.Right);
-    }
-
-    public override void OnLeft(InputAction.CallbackContext context)
-    {
-        base.OnLeft(context);
-        if (context.started)
-            m_cursor.Move(Cursor.MoveType.Left);
+        m_controls.Cursor.Disable();
     }
 }

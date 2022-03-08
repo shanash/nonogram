@@ -3,8 +3,20 @@ using UnityEngine.InputSystem;
 
 public class ViewCursor : MonoBehaviour
 {
-    public void Init()
+    private Cursor m_cursor = null;
+
+    private void Update()
     {
+        if (m_cursor == null) return;
+
+        if (transform.parent != m_cursor.Tile.View.transform)
+            SetParent(m_cursor.Tile.View);
+    }
+
+    public void Init(Cursor cursor)
+    {
+        m_cursor = cursor;
+
         var rt = (RectTransform)this.transform;
         rt.anchorMin = new Vector2(0, 1);
         rt.anchorMax = new Vector2(0, 1);
