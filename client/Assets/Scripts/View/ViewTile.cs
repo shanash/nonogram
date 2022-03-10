@@ -59,5 +59,4 @@ public class ViewTile : ViewBase
         m_image.sprite = sprite;
         m_image.color = color;
     }
-
 }
