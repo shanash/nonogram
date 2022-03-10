@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -23,5 +23,4 @@ public abstract class ViewBase : MonoBehaviour
             m_originInstance.OnUpdate(this);
         }
     }
-
 }

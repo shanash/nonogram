@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
@@ -21,7 +21,7 @@ public class Map : Cursor.IMoveCursor, IViewOrigin
         var map = new Map();
         if (!map.Init(parent, answer))
         {
-            Debug.Assert(false, "¸ÁÇÔ");
+            Debug.Assert(false, "ë§í•¨");
             return null;
         }
         return map;
@@ -40,7 +40,7 @@ public class Map : Cursor.IMoveCursor, IViewOrigin
     private bool Init(RectTransform parent, int[] answer)
     {
         double dSize = Math.Sqrt(answer.Length);
-        // Á¦°ö±ÙÀÌ ¾çÀÇ Á¤¼ö°¡ ¾Æ´Ï¶ó¸é »ı¼º ½ÇÆĞ
+        // ì œê³±ê·¼ì´ ì–‘ì˜ ì •ìˆ˜ê°€ ì•„ë‹ˆë¼ë©´ ìƒì„± ì‹¤íŒ¨
         if (dSize % 1 != 0 || dSize < 0)
             return false;
 
@@ -83,7 +83,7 @@ public class Map : Cursor.IMoveCursor, IViewOrigin
     {
         int iTile = 0;
         
-        // ¼¼·Î ¹®Á¦ ÀÛ¼º
+        // ì„¸ë¡œ ë¬¸ì œ ì‘ì„±
         for (int iQuestion = 0; iQuestion < size; iQuestion++)
         {
             List<int> lineQuestion = new List<int>();
@@ -109,7 +109,7 @@ public class Map : Cursor.IMoveCursor, IViewOrigin
             m_questionVertical.Add(lineQuestion);
         }
 
-        //°¡·Î ¹®Á¦ ÀÛ¼º
+        //ê°€ë¡œ ë¬¸ì œ ì‘ì„±
         for (int iQuestion = 0; iQuestion < size; iQuestion++)
         {
             List<int> lineQuestion = new List<int>();

@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+ï»¿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Timers;
@@ -19,7 +19,7 @@ public class Cursor : MapCompBase, PlayerControls.ICursorActions, IViewOrigin
         Remove,
     }
 
-    // ¹æÇâÅ° ´©¸£°í ÀÖÀ»¶§ ¹İº¹ÀÔ·Â ÁÖ±â 1000 = 1ÃÊ
+    // ë°©í–¥í‚¤ ëˆ„ë¥´ê³  ìˆì„ë•Œ ë°˜ë³µì…ë ¥ ì£¼ê¸° 1000 = 1ì´ˆ
     private readonly static int kREPEAT_INPUT_TERM = 100;
 
     public CursorMode Mode {
@@ -39,7 +39,7 @@ public class Cursor : MapCompBase, PlayerControls.ICursorActions, IViewOrigin
     private Tile m_hasTile = null;
     private ViewCursor m_view = null;
 
-    //¹İº¹ÀÔ·Â°ª
+    //ë°˜ë³µì…ë ¥ê°’
     private MoveType m_repeatInputMove = MoveType.None;
     private Timer m_repeatTimer = null;
 

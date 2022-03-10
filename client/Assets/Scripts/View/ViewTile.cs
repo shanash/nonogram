@@ -1,4 +1,4 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 using UnityEngine.UI;
 
 public class ViewTile : ViewBase
@@ -26,9 +26,9 @@ public class ViewTile : ViewBase
         float tileSize = (mapSize - numSpace * kSPACE - numBigSpace * kSPACE) / sideLength;
 
         int posX = (posIndex % sideLength);
-        float tileX = posX * (tileSize + kSPACE) + (posX/5) * kSPACE; // XÃà 5Ä­Â°´Â µÎ¹è·Î ¶ç¾îÁİ´Ï´Ù.
+        float tileX = posX * (tileSize + kSPACE) + (posX/5) * kSPACE; // Xì¶• 5ì¹¸ì§¸ëŠ” ë‘ë°°ë¡œ ë„ì–´ì¤ë‹ˆë‹¤.
         int posY = (posIndex / sideLength);
-        float tileY = -posY * (tileSize + kSPACE) - (posY / 5) * kSPACE; // YÃà 5Ä­Â°´Â µÎ¹è·Î ¶ç¾îÁİ´Ï´Ù.
+        float tileY = -posY * (tileSize + kSPACE) - (posY / 5) * kSPACE; // Yì¶• 5ì¹¸ì§¸ëŠ” ë‘ë°°ë¡œ ë„ì–´ì¤ë‹ˆë‹¤.
 
         RectTransform rt = this.transform as RectTransform;
         rt.anchorMin = new Vector2(0, 1);
