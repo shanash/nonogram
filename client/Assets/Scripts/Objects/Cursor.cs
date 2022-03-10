@@ -84,7 +84,6 @@ public class Cursor : MapCompBase, PlayerControls.ICursorActions, IViewOrigin
             listener.OnMoveCursor(this, moveType, PosIndex);
         }
         FillTile();
-        Debug.LogError($"Move : {moveType}");
     }
 
     private void StartMove(MoveType moveType)
@@ -210,7 +209,6 @@ public class Cursor : MapCompBase, PlayerControls.ICursorActions, IViewOrigin
 
     public void OnUpdate(ViewBase viewBase)
     {
-        Debug.LogError("OnUpdate");
         if (viewBase is ViewCursor)
         {
             var viewCursor = viewBase as ViewCursor;
@@ -219,6 +217,5 @@ public class Cursor : MapCompBase, PlayerControls.ICursorActions, IViewOrigin
                 viewCursor.SetParent(Tile.View);
             }
         }
-        //((IViewOrigin)Tile).OnUpdate(viewBase);
     }
 }

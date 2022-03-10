@@ -37,16 +37,33 @@ public abstract class MapCompBase
                 {
                     PosIndex += IndexCount;
                 }
+                else if (PosIndex >= IndexCount)
+                {
+                    PosIndex -= IndexCount;
+                }
                 break;
             case MoveType.Down:
                 PosIndex += m_sideLength;
-                if (PosIndex >= IndexCount)
+                if (PosIndex < 0)
+                {
+                    PosIndex += IndexCount;
+                }
+                else if (PosIndex >= IndexCount)
                 {
                     PosIndex -= IndexCount;
                 }
                 break;
             case MoveType.Right:
                 PosIndex++;
+                if (PosIndex < 0)
+                {
+                    PosIndex += IndexCount;
+                }
+                else if (PosIndex >= IndexCount)
+                {
+                    PosIndex -= IndexCount;
+                }
+
                 if (prePosY < PosY)
                 {
                     PosIndex -= m_sideLength;
@@ -54,13 +71,19 @@ public abstract class MapCompBase
                 break;
             case MoveType.Left:
                 PosIndex--;
+                if (PosIndex < 0)
+                {
+                    PosIndex += IndexCount;
+                }
+                else if (PosIndex >= IndexCount)
+                {
+                    PosIndex -= IndexCount;
+                }
                 if (prePosY > PosY)
                 {
                     PosIndex += m_sideLength;
                 }
                 break;
         }
-
-        Debug.LogError($"PosX : {PosX}, PosY : {PosY}");
     }
 }

@@ -11,8 +11,22 @@ public class GameScene : SceneBase
     protected override void Awake()
     {
         base.Awake();
+        int[] answer = new int[]
+        {
+            0,0,0,1,1,1,1,0,0,0,
+            0,0,1,1,0,0,1,1,0,0,
+            0,1,1,0,0,0,0,1,1,0,
+            0,1,0,0,0,0,0,0,1,0,
+            0,1,1,0,0,0,0,1,1,0,
+            0,0,1,1,0,0,1,1,0,0,
+            1,1,1,1,0,0,1,1,1,1,
+            0,0,0,0,0,0,0,0,0,0,
+            1,1,1,1,1,1,1,1,1,1,
+            0,0,0,0,0,0,0,0,0,0
+        };
+           
 
-        m_map = Map.Create(m_parentViewMap, 20);
+        m_map = Map.Create(m_parentViewMap, answer);
         m_cursor = m_map.Cursor;
         AddInputCallback(m_cursor);
     }

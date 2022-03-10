@@ -18,7 +18,6 @@ public class Tile : MapCompBase, IViewOrigin
         }
         set
         {
-            UnityEngine.Debug.Log($"Set {PosX}, {PosY} Tile : {value}");
             m_type = value;
         }
     }
@@ -64,7 +63,7 @@ public class Tile : MapCompBase, IViewOrigin
                 case TileType.Crossed:
                     if (viewTile.ImageName != "x")
                     {
-                        viewTile.SetImage("x", Color.black);
+                        viewTile.SetImage("x", Color.gray);
                     }
                     break;
                 case TileType.Empty:
