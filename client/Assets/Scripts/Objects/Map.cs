@@ -59,7 +59,7 @@ public class Map : Cursor.IMoveCursor, IViewOrigin
 
         for (int i = 0; i < LengthSide * LengthSide; i++)
         {
-            var tile = Tile.Create(m_view.ParentTiles, i, LengthSide);
+            var tile = Tile.Create(this, m_view.ParentTiles, i, LengthSide);
             m_listTile.Add(tile);
         }
 
@@ -80,6 +80,18 @@ public class Map : Cursor.IMoveCursor, IViewOrigin
     public void OnUpdate(ViewBase viewBase)
     {
 
+    }
+
+    public bool CheckClear()
+    {
+        foreach(var tile in m_listTile)
+        {
+            if (m_answer[tile.PosIndex] == 1 && tile.Type != Tile.TileType.Painted)
+                return false;
+            if (m_answer[tile.PosIndex] == 0 && tile.Type == Tile.TileType.Painted)
+                return false;
+        }
+        return true;
     }
 }
 

@@ -19,28 +19,35 @@ public class Tile : MapCompBase, IViewOrigin
         set
         {
             m_type = value;
+            if (m_map.CheckClear())
+            {
+                Debug.LogError("OK");
+                //SceneManager.I.Current.ResultPopup();
+            }
         }
     }
 
     private TileType m_type = TileType.None;
     public ViewTile View { get { return m_view; } }
     private ViewTile m_view = null;
+    private Map m_map = null;
 
-    public static Tile Create(RectTransform parent, int posIndex, int sideLength)
+    public static Tile Create(Map map, RectTransform parent, int posIndex, int sideLength)
     {
         var tile = new Tile(posIndex, sideLength);
-        tile.Init(parent);
+        tile.Init(map, parent);
         return tile;
     }
 
     protected Tile(int posIndex, int mapSize)
         : base(posIndex, mapSize)
     {
-        Type = TileType.Empty;
+        m_type = TileType.Empty;
     }
 
-    private void Init(RectTransform parent)
+    private void Init(Map map, RectTransform parent)
     {
+        m_map = map;
         var goViewTile = new GameObject($"ViewTile{PosIndex}", typeof(RectTransform), typeof(ViewTile));
         m_view = goViewTile.GetComponent<ViewTile>();
         m_view.Init(this, parent, PosIndex, m_sideLength);
