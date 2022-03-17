@@ -5,6 +5,8 @@ public class GameScene : SceneBase
 {
     [SerializeField]
     private RectTransform m_parentViewMap = null;
+    [SerializeField]
+    private GameObject m_resultPopup = null;
 
     private Map m_map = null;
     private Cursor m_cursor = null;
@@ -39,5 +41,11 @@ public class GameScene : SceneBase
     private void OnDisable()
     {
         m_controls.Cursor.Disable();
+    }
+
+    public void CreateResultPopup()
+    {
+        Debug.LogError("OK");
+        m_resultPopup.SetActive(true);
     }
 }

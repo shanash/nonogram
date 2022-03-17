@@ -21,8 +21,8 @@ public class Tile : MapCompBase, IViewOrigin
             m_type = value;
             if (m_map.CheckClear())
             {
-                Debug.LogError("OK");
-                //SceneManager.I.Current.ResultPopup();
+                GameScene scene = (GameScene)SceneManager.I.CurrentScene;
+                scene.CreateResultPopup();
             }
         }
     }
