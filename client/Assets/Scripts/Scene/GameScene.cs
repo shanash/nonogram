@@ -8,27 +8,14 @@ public class GameScene : SceneBase
     [SerializeField]
     private GameObject m_resultPopup = null;
 
+    private int[] m_answer = null;
     private Map m_map = null;
     private Cursor m_cursor = null;
     protected override void Awake()
     {
         base.Awake();
-        int[] answer = new int[]
-        {
-            0,0,0,1,1,1,1,0,0,0,
-            0,0,1,1,0,0,1,1,0,0,
-            0,1,1,0,0,0,0,1,1,0,
-            0,1,0,0,0,0,0,0,1,0,
-            0,1,1,0,0,0,0,1,1,0,
-            0,0,1,1,0,0,1,1,0,0,
-            1,1,1,1,0,0,1,1,1,1,
-            0,0,0,0,0,0,0,0,0,0,
-            1,1,1,1,1,1,1,1,1,1,
-            0,0,0,0,0,0,0,0,0,0
-        };
-           
 
-        m_map = Map.Create(m_parentViewMap, answer);
+        m_map = Map.Create(m_parentViewMap, m_answer);
         m_cursor = m_map.Cursor;
         AddInputCallback(m_cursor);
     }
@@ -41,6 +28,14 @@ public class GameScene : SceneBase
     private void OnDisable()
     {
         m_controls.Cursor.Disable();
+    }
+
+    public override void OnAwakeWithParameter(object param)
+    {
+        if (param is int[])
+        {
+            m_answer = param as int[];
+        }
     }
 
     public void CreateResultPopup()

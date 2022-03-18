@@ -74,7 +74,8 @@ public class ViewQuestion : MonoBehaviour
                 var textNum = goNum.AddComponent<Text>();
                 textNum.font = font;
                 textNum.color = Color.white;
-                textNum.fontSize = 50;
+                textNum.fontSize = 100;
+                textNum.resizeTextForBestFit = true;
                 textNum.text = num.ToString();
                 textNum.alignment = TextAnchor.MiddleCenter;
             }

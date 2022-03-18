@@ -20,6 +20,7 @@ public class SceneManager : BehaviourSingleton<SceneManager>
     private bool m_isChanging = false;
     private string m_curSceneName = string.Empty;
     private string m_nextSceneName = string.Empty;
+    private object m_parameterForScene = null;
     #endregion
 
     #region Monobehaviour Callback
@@ -32,9 +33,11 @@ public class SceneManager : BehaviourSingleton<SceneManager>
     #endregion
 
     #region Private Method
-    private IEnumerator _CoChangeScene(string sceneName, string detailPage)
+    private IEnumerator _CoChangeScene(string sceneName, object parameter)
     {
         m_isChanging = true;
+
+        m_parameterForScene = parameter;
 
         //yield return new WaitUntil(() => m_fader != null);
 
@@ -59,9 +62,12 @@ public class SceneManager : BehaviourSingleton<SceneManager>
     public void SetCurrent(SceneBase current)
     {
         CurrentScene = current;
+
+        if (m_parameterForScene != null)
+            CurrentScene.OnAwakeWithParameter(m_parameterForScene);
     }
 
-    public void ChangeScene(string sceneName, string detailPage = "")
+    public void ChangeScene(string sceneName, object parameter = null)
     {
         if (m_isChanging)
             return;
@@ -73,7 +79,7 @@ public class SceneManager : BehaviourSingleton<SceneManager>
 
         // TODO: 기존 팝업을 다 닫아줍니다.
         m_nextSceneName = sceneName;
-        StartCoroutine(_CoChangeScene(sceneName, detailPage));
+        StartCoroutine(_CoChangeScene(sceneName, parameter));
     }
     #endregion
 }
