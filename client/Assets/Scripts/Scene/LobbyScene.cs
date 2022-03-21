@@ -7,40 +7,6 @@ using UnityEngine.UI;
 
 public class LobbyScene : SceneBase
 {
-    /*
-    private int[] m_answer0 = new int[]
-{
-                    0,0,0,1,1,1,1,0,0,0,
-                    0,0,1,1,0,0,1,1,0,0,
-                    0,1,1,0,0,0,0,1,1,0,
-                    0,1,0,0,0,0,0,0,1,0,
-                    0,1,1,0,0,0,0,1,1,0,
-                    0,0,1,1,0,0,1,1,0,0,
-                    1,1,1,1,0,0,1,1,1,1,
-                    0,0,0,0,0,0,0,0,0,0,
-                    1,1,1,1,1,1,1,1,1,1,
-                    0,0,0,0,0,0,0,0,0,0
-};
-
-    private int[] m_answer1 = new int[]
-{
-                    0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,
-                    0,0,0,0,1,1,1,1,1,1,1,0,0,0,0,
-                    0,1,0,1,1,1,1,1,1,1,1,1,0,1,0,
-                    0,0,1,1,1,1,1,1,1,1,1,1,1,0,0,
-                    0,0,0,1,0,1,0,1,0,1,0,1,0,0,0,
-                    0,0,0,1,1,1,1,1,1,1,1,1,0,0,0,
-                    1,0,1,1,1,1,1,1,1,1,1,1,1,0,1,
-                    0,1,1,1,1,1,1,1,1,1,1,1,1,1,0,
-                    0,0,0,1,1,0,1,0,1,0,1,1,0,0,0,
-                    1,0,1,1,1,1,1,1,1,1,1,1,1,0,1,
-                    1,0,1,1,0,1,1,0,1,1,0,1,1,0,1,
-                    1,0,1,1,1,1,0,0,0,1,1,1,1,0,1,
-                    1,0,1,0,0,1,0,1,0,1,0,0,1,0,1,
-                    1,0,1,0,0,1,0,0,0,1,0,0,1,0,1,
-                    1,0,1,0,1,1,0,0,0,1,1,0,1,0,1
-};
-    */
     [SerializeField]
     private Button m_baseStageButton = null;
 
@@ -92,6 +58,8 @@ public class LobbyScene : SceneBase
             Button btn = Instantiate(m_baseStageButton);
             btn.transform.parent = m_baseStageButton.transform.parent;
             btn.name = $"Button{index}";
+
+            btn.transform.Find("Text").GetComponent<Text>().text = index.ToString();
             btn.onClick.AddListener(delegate () { _OnClick(btn.gameObject.name, null); });
 
             index++;

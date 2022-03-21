@@ -40,7 +40,6 @@ public class GameScene : SceneBase
 
     public void CreateResultPopup()
     {
-        Debug.LogError("OK");
         m_resultPopup.SetActive(true);
     }
 }
