@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public class Map : Cursor.IMoveCursor, IViewOrigin
+public class Map : Cursor.IMoveCursor, IViewOrigin, IObserver
 {
     private ViewMap m_view = null;
 
@@ -34,9 +34,9 @@ public class Map : Cursor.IMoveCursor, IViewOrigin
 
     }
 
-    public void OnMoveCursor(Cursor cursor, Cursor.MoveType type, int destPosIndex)
+    public void OnMoveCursor(Cursor cursor)
     {
-        cursor.SetTile(m_listTile[destPosIndex]);
+        cursor.SetTile(m_listTile[cursor.PosIndex]);
     }
 
     private bool Init(RectTransform parent, int[] answer)
@@ -46,14 +46,14 @@ public class Map : Cursor.IMoveCursor, IViewOrigin
         if (dSize % 1 != 0 || dSize < 0)
             return false;
 
-        m_vertical = MapQuestion.Create(MapQuestion.Direction.Vertical, answer);
-        m_horizon = MapQuestion.Create(MapQuestion.Direction.Horizon, answer);
-
         m_answer = answer;
         LengthSide = (int)dSize;
 
         var goViewMap = new GameObject("ViewMap", typeof(RectTransform), typeof(ViewMap));
         m_view = goViewMap.GetComponent<ViewMap>();
+
+        m_vertical = MapQuestion.Create(MapQuestion.Direction.Vertical, answer);
+        m_horizon = MapQuestion.Create(MapQuestion.Direction.Horizon, answer);
 
         m_view.Init(this, parent, ref m_vertical, ref m_horizon);
 
@@ -66,6 +66,10 @@ public class Map : Cursor.IMoveCursor, IViewOrigin
         Cursor = Cursor.Create(0, LengthSide);
         Cursor.SetTile(m_listTile[0]);
         Cursor.AddListner(this);
+        Cursor.AddObserver(this);
+
+        m_horizon.Init(m_listTile, Cursor);
+        m_vertical.Init(m_listTile, Cursor);
 
         return true;
     }
@@ -82,7 +86,7 @@ public class Map : Cursor.IMoveCursor, IViewOrigin
 
     }
 
-    public bool CheckClear()
+    public bool CheckAndClear()
     {
         foreach(var tile in m_listTile)
         {
@@ -91,7 +95,19 @@ public class Map : Cursor.IMoveCursor, IViewOrigin
             if (m_answer[tile.PosIndex] == 0 && tile.Type == Tile.TileType.Painted)
                 return false;
         }
+
+        GameScene scene = (GameScene)SceneManager.I.CurrentScene;
+        scene.CreateResultPopup();
+
         return true;
+    }
+
+    public void OnNotify(ISubject s)
+    {
+        if (s is Cursor)
+        {
+            CheckAndClear();
+        }
     }
 }
 

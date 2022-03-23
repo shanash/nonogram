@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MapQuestion
+public class MapQuestion : IObserver
 {
     public enum Direction
     {
@@ -41,6 +41,7 @@ public class MapQuestion
     private Direction m_direction = Direction.None;
     private List<List<int>> m_listQuestion = new List<List<int>>();
     private ViewQuestion m_view = null;
+    private List<Tile> m_tiles;
 
     public static MapQuestion Create(Direction dir, int[] answer)
     {
@@ -118,9 +119,23 @@ public class MapQuestion
         m_view.Init(this, parent, size, tileSize);
     }
 
+    public void Init(List<Tile> tiles, Cursor cursor)
+    {
+        m_tiles = tiles;
+        cursor.AddObserver(this);
+    }
+
     public List<int> GetLine(int index)
     {
         if (index >= m_listQuestion.Count || index < 0) return null;
         return m_listQuestion[index];
+    }
+
+    public void OnNotify(ISubject s)
+    {
+        if (s is Cursor)
+        {
+            var cursor = s as Cursor;
+        }
     }
 }

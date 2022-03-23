@@ -1,4 +1,6 @@
 ﻿using UnityEngine;
+using System;
+using System.Collections.Generic;
 
 public class Tile : MapCompBase, IViewOrigin
 {
@@ -19,11 +21,6 @@ public class Tile : MapCompBase, IViewOrigin
         set
         {
             m_type = value;
-            if (m_map.CheckClear())
-            {
-                GameScene scene = (GameScene)SceneManager.I.CurrentScene;
-                scene.CreateResultPopup();
-            }
         }
     }
 

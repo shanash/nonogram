@@ -3,11 +3,11 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Timers;
 
-public class Cursor : MapCompBase, PlayerControls.ICursorActions, IViewOrigin
+public class Cursor : MapCompBase, PlayerControls.ICursorActions, IViewOrigin, ISubject
 {
     public interface IMoveCursor
     {
-        void OnMoveCursor(Cursor cursor, Cursor.MoveType type, int destPosIndex);
+        void OnMoveCursor(Cursor cursor);
     }
 
     public enum CursorMode
@@ -42,6 +42,9 @@ public class Cursor : MapCompBase, PlayerControls.ICursorActions, IViewOrigin
     //반복입력값
     private MoveType m_repeatInputMove = MoveType.None;
     private Timer m_repeatTimer = null;
+
+    // 타일입력시에 다른 오브젝트의 업데이트용
+    private List<IObserver> m_observers = new List<IObserver>();
 
     public static Cursor Create(int posIndex, int mapSize)
     {
@@ -81,7 +84,7 @@ public class Cursor : MapCompBase, PlayerControls.ICursorActions, IViewOrigin
         base.Move(moveType);
         foreach (var listener in m_listeners)
         {
-            listener.OnMoveCursor(this, moveType, PosIndex);
+            listener.OnMoveCursor(this);
         }
         FillTile();
     }
@@ -111,6 +114,7 @@ public class Cursor : MapCompBase, PlayerControls.ICursorActions, IViewOrigin
 
     private void FillTile()
     {
+        Tile.TileType pastType = m_hasTile.Type;
         switch (m_mode)
         {
             case CursorMode.Paint:
@@ -123,6 +127,20 @@ public class Cursor : MapCompBase, PlayerControls.ICursorActions, IViewOrigin
                 m_hasTile.Type = Tile.TileType.Empty;
                 break;
         }
+
+        if (pastType != m_hasTile.Type) // 타일타입이 변경!
+        {
+            
+            /*
+            if (m_map.CheckClear())
+            {
+                GameScene scene = (GameScene)SceneManager.I.CurrentScene;
+                scene.CreateResultPopup();
+            }
+            */
+        }
+
+        Notify();
     }
 
     public virtual void OnOK(InputAction.CallbackContext context)
@@ -216,6 +234,24 @@ public class Cursor : MapCompBase, PlayerControls.ICursorActions, IViewOrigin
             {
                 viewCursor.SetParent(Tile.View);
             }
+        }
+    }
+
+    public void AddObserver(IObserver o)
+    {
+        m_observers.Add(o);
+    }
+
+    public void RemoveObserver(IObserver o)
+    {
+        m_observers.Remove(o);
+    }
+
+    public void Notify()
+    {
+        foreach (var item in m_observers)
+        {
+            item.OnNotify(this);
         }
     }
 }

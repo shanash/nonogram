@@ -20,7 +20,7 @@ public class LobbyScene : SceneBase
     private IEnumerator WR()
     {
         WWWForm form = new WWWForm();
-        UnityWebRequest www = UnityWebRequest.Post("http://192.168.0.4:3030/", form);
+        UnityWebRequest www = UnityWebRequest.Post("http://ec2-13-125-35-167.ap-northeast-2.compute.amazonaws.com:3030/", form);
         yield return www.SendWebRequest();
 
         if (www.result != UnityWebRequest.Result.Success)
