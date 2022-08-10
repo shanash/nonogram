@@ -35,8 +35,8 @@ public class Cursor : MapCompBase, PlayerControls.ICursorActions, IViewOrigin, I
     }
     private CursorMode m_mode = CursorMode.None;
     private List<IMoveCursor> m_listeners = new List<IMoveCursor>();
-    public Tile Tile { get { return m_hasTile; } }
-    private Tile m_hasTile = null;
+    public ModelTile Tile { get { return m_hasTile; } }
+    private ModelTile m_hasTile = null;
     private ViewCursor m_view = null;
 
     //반복입력값
@@ -106,7 +106,7 @@ public class Cursor : MapCompBase, PlayerControls.ICursorActions, IViewOrigin, I
         }
     }
 
-    public void SetTile(Tile tile)
+    public void SetTile(ModelTile tile)
     {
         m_hasTile = tile;
         //m_view.SetParent(tile.View);
@@ -114,17 +114,17 @@ public class Cursor : MapCompBase, PlayerControls.ICursorActions, IViewOrigin, I
 
     private void FillTile()
     {
-        Tile.TileType pastType = m_hasTile.Type;
+        ModelTile.TileType pastType = m_hasTile.Type;
         switch (m_mode)
         {
             case CursorMode.Paint:
-                m_hasTile.Type = Tile.TileType.Painted;
+                m_hasTile.Type = ModelTile.TileType.Painted;
                 break;
             case CursorMode.Cross:
-                m_hasTile.Type = Tile.TileType.Crossed;
+                m_hasTile.Type = ModelTile.TileType.Crossed;
                 break;
             case CursorMode.Remove:
-                m_hasTile.Type = Tile.TileType.Empty;
+                m_hasTile.Type = ModelTile.TileType.Empty;
                 break;
         }
 
@@ -148,7 +148,7 @@ public class Cursor : MapCompBase, PlayerControls.ICursorActions, IViewOrigin, I
         PrintContext("OnOK", context);
         if (context.started)
         {
-            if (Tile.Type == Tile.TileType.Empty)
+            if (Tile.Type == ModelTile.TileType.Empty)
                 Mode = Cursor.CursorMode.Paint;
             else
                 Mode = Cursor.CursorMode.Remove;
@@ -164,7 +164,7 @@ public class Cursor : MapCompBase, PlayerControls.ICursorActions, IViewOrigin, I
         PrintContext("OnCancel", context);
         if (context.started)
         {
-            if (Tile.Type == Tile.TileType.Empty)
+            if (Tile.Type == ModelTile.TileType.Empty)
                 Mode = Cursor.CursorMode.Cross;
             else
                 Mode = Cursor.CursorMode.Remove;

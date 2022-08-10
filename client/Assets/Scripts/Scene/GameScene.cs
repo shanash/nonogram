@@ -9,13 +9,13 @@ public class GameScene : SceneBase
     private GameObject m_resultPopup = null;
 
     private int[] m_answer = null;
-    private Map m_map = null;
+    private ModelMap m_map = null;
     private Cursor m_cursor = null;
     protected override void Awake()
     {
         base.Awake();
 
-        m_map = Map.Create(m_parentViewMap, m_answer);
+        m_map = ModelMap.Create(m_parentViewMap, m_answer);
         m_cursor = m_map.Cursor;
         AddInputCallback(m_cursor);
     }

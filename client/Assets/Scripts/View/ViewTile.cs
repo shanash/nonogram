@@ -15,7 +15,7 @@ public class ViewTile : ViewBase
     }
     private Image m_image = null;
 
-    public void Init(Tile tile, RectTransform parent, int posIndex, int sideLength)
+    public void Init(ModelTile tile, RectTransform parent, int posIndex, int sideLength)
     {
         base.Init(tile);
 

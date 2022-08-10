@@ -41,7 +41,7 @@ public class MapQuestion : IObserver
     private Direction m_direction = Direction.None;
     private List<List<int>> m_listQuestion = new List<List<int>>();
     private ViewQuestion m_view = null;
-    private List<Tile> m_tiles;
+    private List<ModelTile> m_tiles;
 
     public static MapQuestion Create(Direction dir, int[] answer)
     {
@@ -119,7 +119,7 @@ public class MapQuestion : IObserver
         m_view.Init(this, parent, size, tileSize);
     }
 
-    public void Init(List<Tile> tiles, Cursor cursor)
+    public void Init(List<ModelTile> tiles, Cursor cursor)
     {
         m_tiles = tiles;
         cursor.AddObserver(this);

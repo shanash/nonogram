@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public class Map : Cursor.IMoveCursor, IViewOrigin, IObserver
+public class ModelMap : Cursor.IMoveCursor, IViewOrigin, IObserver
 {
     private ViewMap m_view = null;
 
     public int Count { get { return m_listTile.Count; } }
     public int LengthSide { get; private set; }
 
-    private List<Tile> m_listTile = new List<Tile>();
+    private List<ModelTile> m_listTile = new List<ModelTile>();
     private int[] m_answer = null;
 
     private MapQuestion m_vertical = null;
@@ -18,9 +18,9 @@ public class Map : Cursor.IMoveCursor, IViewOrigin, IObserver
 
     public Cursor Cursor { get; private set; }
 
-    public static Map Create(RectTransform parent, int[] answer)
+    public static ModelMap Create(RectTransform parent, int[] answer)
     {
-        var map = new Map();
+        var map = new ModelMap();
         if (!map.Init(parent, answer))
         {
             Debug.Assert(false, "망함");
@@ -29,7 +29,7 @@ public class Map : Cursor.IMoveCursor, IViewOrigin, IObserver
         return map;
     }
 
-    private Map()
+    private ModelMap()
     {
 
     }
@@ -59,7 +59,7 @@ public class Map : Cursor.IMoveCursor, IViewOrigin, IObserver
 
         for (int i = 0; i < LengthSide * LengthSide; i++)
         {
-            var tile = Tile.Create(this, m_view.ParentTiles, i, LengthSide);
+            var tile = ModelTile.Create(this, m_view.ParentTiles, i, LengthSide);
             m_listTile.Add(tile);
         }
 
@@ -74,7 +74,7 @@ public class Map : Cursor.IMoveCursor, IViewOrigin, IObserver
         return true;
     }
 
-    public Tile GetTile(int posIndex)
+    public ModelTile GetTile(int posIndex)
     {
         if (posIndex >= m_listTile.Count)
             return null;
@@ -90,9 +90,9 @@ public class Map : Cursor.IMoveCursor, IViewOrigin, IObserver
     {
         foreach(var tile in m_listTile)
         {
-            if (m_answer[tile.PosIndex] == 1 && tile.Type != Tile.TileType.Painted)
+            if (m_answer[tile.PosIndex] == 1 && tile.Type != ModelTile.TileType.Painted)
                 return false;
-            if (m_answer[tile.PosIndex] == 0 && tile.Type == Tile.TileType.Painted)
+            if (m_answer[tile.PosIndex] == 0 && tile.Type == ModelTile.TileType.Painted)
                 return false;
         }
 

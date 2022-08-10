@@ -12,7 +12,7 @@ public class ViewMap : ViewBase
 
     //private ViewLineQuestion m_viewLineQuestion = null;
 
-    public void Init(Map map, RectTransform parent, ref MapQuestion vertical, ref MapQuestion horizon)
+    public void Init(ModelMap map, RectTransform parent, ref MapQuestion vertical, ref MapQuestion horizon)
     {
         base.Init(map);
 

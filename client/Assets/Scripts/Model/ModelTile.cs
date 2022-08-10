@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 
-public class Tile : MapCompBase, IViewOrigin
+public class ModelTile : MapCompBase, IViewOrigin
 {
     public enum TileType
     {
@@ -27,22 +27,22 @@ public class Tile : MapCompBase, IViewOrigin
     private TileType m_type = TileType.None;
     public ViewTile View { get { return m_view; } }
     private ViewTile m_view = null;
-    private Map m_map = null;
+    private ModelMap m_map = null;
 
-    public static Tile Create(Map map, RectTransform parent, int posIndex, int sideLength)
+    public static ModelTile Create(ModelMap map, RectTransform parent, int posIndex, int sideLength)
     {
-        var tile = new Tile(posIndex, sideLength);
+        var tile = new ModelTile(posIndex, sideLength);
         tile.Init(map, parent);
         return tile;
     }
 
-    protected Tile(int posIndex, int mapSize)
+    protected ModelTile(int posIndex, int mapSize)
         : base(posIndex, mapSize)
     {
         m_type = TileType.Empty;
     }
 
-    private void Init(Map map, RectTransform parent)
+    private void Init(ModelMap map, RectTransform parent)
     {
         m_map = map;
         var goViewTile = new GameObject($"ViewTile{PosIndex}", typeof(RectTransform), typeof(ViewTile));
